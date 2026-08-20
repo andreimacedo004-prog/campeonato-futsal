@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="login-box">
+        <h2>Área Administrativa</h2>
+        <div class="alert alert-erro" th:if="${param.error}">Usuário ou senha inválidos.</div>
+        <div class="alert" th:if="${param.logout}" style="background:#eaf6ec;color:#1a7a3c;border:1px solid #bfe3c8;">Você saiu do painel.</div>
+        <form class="form-box" th:action="@{/admin/login}" method="post">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" required autofocus>
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required>
+
+            <div class="acoes">
+                <button type="submit" class="btn">Entrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

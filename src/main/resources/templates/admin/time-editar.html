@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar time</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb"><a href="/admin">Painel Admin</a> / Editar time</div>
+    <h1>Editar time</h1>
+
+    <form class="form-box" th:action="@{'/admin/times/' + ${time.id} + '/editar'}" method="post">
+        <label for="nome">Nome do time</label>
+        <input type="text" id="nome" name="nome" th:value="${time.nome}" required>
+        <div class="acoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{'/admin/grupos/' + ${time.grupo.id}}">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Painel Admin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <h1>Painel Admin</h1>
+    <p>Aqui você gerencia chaves, times, jogos e artilheiros de cada divisão.</p>
+
+    <div th:each="d : ${divisoes}" style="margin-bottom:2rem;">
+        <h2 th:text="${d.nome}">Divisão</h2>
+        <div class="cards">
+            <div class="card" th:each="g : ${d.grupos}">
+                <h3 th:text="${g.nome}">Chave</h3>
+                <p th:text="${#lists.size(g.times)} + ' time(s)'"></p>
+                <a class="btn btn-small" th:href="@{'/admin/grupos/' + ${g.id}}">Gerenciar</a>
+                <a class="btn btn-small btn-secondary" th:href="@{'/grupo/' + ${g.id}}" target="_blank">Ver página pública</a>
+            </div>
+            <div class="card">
+                <h3>Nova chave</h3>
+                <p>Criar uma nova chave nesta divisão.</p>
+                <a class="btn btn-small" th:href="@{'/admin/divisao/' + ${d.id} + '/grupos/novo'}">+ Adicionar chave</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

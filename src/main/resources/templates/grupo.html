@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${grupo.nome} + ' - ' + ${grupo.divisao.nome}">Grupo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb">
+        <a href="/">Início</a> /
+        <a th:href="@{'/divisao/' + ${grupo.divisao.id}}" th:text="${grupo.divisao.nome}"></a> /
+        <span th:text="${grupo.nome}"></span>
+    </div>
+    <h1 th:text="${grupo.nome}">Chave</h1>
+
+    <h2>Classificação</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th class="nome-time">Time</th>
+            <th>P</th>
+            <th>J</th>
+            <th>V</th>
+            <th>E</th>
+            <th>D</th>
+            <th>GP</th>
+            <th>GC</th>
+            <th>SG</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tc, iter : ${classificacao}">
+            <td class="pos-classificacao" th:text="${iter.index + 1}">1</td>
+            <td class="nome-time" th:text="${tc.time.nome}">Time</td>
+            <td><strong th:text="${tc.pontos}">0</strong></td>
+            <td th:text="${tc.jogos}">0</td>
+            <td th:text="${tc.vitorias}">0</td>
+            <td th:text="${tc.empates}">0</td>
+            <td th:text="${tc.derrotas}">0</td>
+            <td th:text="${tc.golsPro}">0</td>
+            <td th:text="${tc.golsContra}">0</td>
+            <td th:text="${tc.saldoGols}">0</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(classificacao)}"><td colspan="10">Nenhum time cadastrado ainda.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Jogos</h2>
+    <div th:each="entrada : ${jogosPorRodada}">
+        <div class="rodada-titulo" th:text="${entrada.key} > 0 ? 'Rodada ' + ${entrada.key} : 'Jogos'"></div>
+        <div class="jogo-linha" th:each="j : ${entrada.value}">
+            <span class="jogo-times" th:text="${j.timeCasa.nome} + ' x ' + ${j.timeFora.nome}"></span>
+            <span th:if="${j.jogado}" class="placar" th:text="${j.golsCasa} + ' - ' + ${j.golsFora}"></span>
+            <span th:unless="${j.jogado}" class="nao-jogado">ainda não jogado</span>
+        </div>
+    </div>
+    <p th:if="${#maps.isEmpty(jogosPorRodada)}">Nenhum jogo cadastrado ainda nesta chave.</p>
+
+    <h2>Artilheiros da chave</h2>
+    <table>
+        <thead>
+        <tr><th>#</th><th class="nome-time">Jogador</th><th class="nome-time">Time</th><th>Gols</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="a, iter : ${artilheiros}">
+            <td th:text="${iter.index + 1}">1</td>
+            <td class="nome-time" th:text="${a.jogador}">Jogador</td>
+            <td class="nome-time" th:text="${a.timeNome}">Time</td>
+            <td><strong th:text="${a.totalGols}">0</strong></td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(artilheiros)}"><td colspan="4">Nenhum gol registrado ainda.</td></tr>
+        </tbody>
+    </table>
+</div>
+<footer>Campeonato Municipal de Salão</footer>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Campeonato Municipal de Salão</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <h1>Campeonato Municipal de Salão</h1>
+    <p>Escolha uma divisão para ver as chaves, jogos, resultados e artilheiros.</p>
+
+    <div class="cards">
+        <div class="card" th:each="d : ${divisoes}">
+            <h3 th:text="${d.nome}">Divisão</h3>
+            <p th:text="${#lists.size(d.grupos)} + ' chave(s)'">grupos</p>
+            <a class="btn" th:href="@{'/divisao/' + ${d.id}}">Ver chaves e resultados</a>
+        </div>
+        <p th:if="${#lists.isEmpty(divisoes)}">Nenhuma divisão cadastrada ainda.</p>
+    </div>
+</div>
+<footer>Campeonato Municipal de Salão</footer>
+</body>
+</html>

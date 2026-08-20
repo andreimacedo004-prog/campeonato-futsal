@@ -1,0 +1,165 @@
+:root {
+    --verde: #1a7a3c;
+    --verde-escuro: #125c2c;
+    --cinza-claro: #f4f6f5;
+    --cinza-borda: #dde3e0;
+    --texto: #202524;
+    --amarelo: #e8b400;
+    --vermelho: #c62f2f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--cinza-claro);
+    color: var(--texto);
+}
+
+.navbar {
+    background: var(--verde-escuro);
+    padding: 0.9rem 0;
+}
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.brand {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+.nav-links a, .nav-links .link-button {
+    color: #e8f3ec;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 0.95rem;
+}
+.nav-links a:hover, .nav-links .link-button:hover { text-decoration: underline; }
+.logout-form { display: inline; }
+.link-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem 1.2rem 3rem;
+}
+
+h1, h2, h3 { color: var(--verde-escuro); }
+
+.breadcrumb { font-size: 0.9rem; margin-bottom: 1rem; color: #555; }
+.breadcrumb a { color: var(--verde-escuro); text-decoration: none; }
+
+.cards { display: flex; flex-wrap: wrap; gap: 1rem; }
+.card {
+    background: #fff;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 10px;
+    padding: 1.2rem;
+    flex: 1 1 240px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.card h3 { margin-top: 0; }
+
+.btn {
+    display: inline-block;
+    background: var(--verde);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+.btn:hover { background: var(--verde-escuro); }
+.btn-secondary { background: #6c757d; }
+.btn-secondary:hover { background: #565e64; }
+.btn-danger { background: var(--vermelho); }
+.btn-danger:hover { background: #9c2323; }
+.btn-small { padding: 0.3rem 0.6rem; font-size: 0.85rem; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+th, td {
+    padding: 0.55rem 0.7rem;
+    text-align: center;
+    border-bottom: 1px solid var(--cinza-borda);
+}
+th { background: var(--verde); color: #fff; font-weight: 600; font-size: 0.85rem; }
+td.nome-time, th.nome-time { text-align: left; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafdfb; }
+
+.pos-classificacao { font-weight: 700; }
+
+.rodada-titulo {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--verde-escuro);
+}
+
+.jogo-linha {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.jogo-times { font-weight: 600; }
+.placar { font-weight: 700; color: var(--verde-escuro); min-width: 60px; text-align: center; }
+.nao-jogado { color: #999; font-style: italic; font-size: 0.9rem; }
+
+form.form-box {
+    background: #fff;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 8px;
+    padding: 1.2rem;
+    max-width: 480px;
+}
+label { display: block; margin: 0.7rem 0 0.25rem; font-weight: 600; font-size: 0.9rem; }
+input[type=text], input[type=number], input[type=date], input[type=password], select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--cinza-borda);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+.checkbox-linha { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.9rem; }
+.checkbox-linha input { width: auto; }
+.acoes { margin-top: 1.2rem; display: flex; gap: 0.6rem; }
+
+.badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; background: var(--amarelo); color: #4a3800; }
+
+.alert { padding: 0.7rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+.alert-erro { background: #fdecea; color: var(--vermelho); border: 1px solid #f5c2c0; }
+
+.login-box { max-width: 360px; margin: 3rem auto; }
+
+footer { text-align: center; padding: 1.5rem; color: #777; font-size: 0.85rem; }

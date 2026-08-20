@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="'Gerenciar ' + ${grupo.nome}">Gerenciar chave</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb"><a href="/admin">Painel Admin</a> / <span th:text="${grupo.nome}"></span></div>
+    <h1 th:text="${grupo.nome} + ' — ' + ${grupo.divisao.nome}">Chave</h1>
+
+    <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+        <div style="flex:1 1 320px;">
+            <h2>Times</h2>
+            <table>
+                <thead><tr><th class="nome-time">Nome</th><th>Ações</th></tr></thead>
+                <tbody>
+                <tr th:each="t : ${times}">
+                    <td class="nome-time" th:text="${t.nome}">Time</td>
+                    <td>
+                        <a class="btn btn-small" th:href="@{'/admin/times/' + ${t.id} + '/editar'}">Editar</a>
+                        <form th:action="@{'/admin/times/' + ${t.id} + '/excluir'}" method="post" style="display:inline"
+                              onsubmit="return confirm('Excluir este time? Isso também remove os jogos dele.');">
+                            <button type="submit" class="btn btn-small btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(times)}"><td colspan="2">Nenhum time cadastrado.</td></tr>
+                </tbody>
+            </table>
+            <a class="btn" th:href="@{'/admin/grupos/' + ${grupo.id} + '/times/novo'}">+ Adicionar time</a>
+        </div>
+
+        <div style="flex:2 1 420px;">
+            <h2>Jogos</h2>
+            <form th:action="@{'/admin/grupos/' + ${grupo.id} + '/jogos/gerar'}" method="post" style="margin-bottom:1rem;"
+                  onsubmit="return confirm('Gerar a tabela de jogos (turno único) para todos os times desta chave?');">
+                <button type="submit" class="btn">🔄 Gerar tabela de jogos automaticamente</button>
+            </form>
+
+            <table>
+                <thead><tr><th>Rodada</th><th class="nome-time">Confronto</th><th>Placar</th><th>Status</th><th>Ações</th></tr></thead>
+                <tbody>
+                <tr th:each="j : ${jogos}">
+                    <td th:text="${j.rodada}">1</td>
+                    <td class="nome-time" th:text="${j.timeCasa.nome} + ' x ' + ${j.timeFora.nome}"></td>
+                    <td th:text="${j.jogado} ? (${j.golsCasa} + ' - ' + ${j.golsFora}) : '-'"></td>
+                    <td>
+                        <span class="badge" th:if="${j.jogado}">Encerrado</span>
+                        <span th:unless="${j.jogado}" class="nao-jogado">Não jogado</span>
+                    </td>
+                    <td><a class="btn btn-small" th:href="@{'/admin/jogos/' + ${j.id} + '/editar'}">Lançar resultado</a></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(jogos)}"><td colspan="5">Nenhum jogo cadastrado. Use o botão acima para gerar automaticamente.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lançar resultado</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb">
+        <a href="/admin">Painel Admin</a> /
+        <a th:href="@{'/admin/grupos/' + ${jogo.grupo.id}}" th:text="${jogo.grupo.nome}"></a> / Jogo
+    </div>
+    <h1 th:text="${jogo.timeCasa.nome} + ' x ' + ${jogo.timeFora.nome}">Jogo</h1>
+
+    <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+        <div style="flex:1 1 320px;">
+            <h2>Resultado</h2>
+            <form class="form-box" th:action="@{'/admin/jogos/' + ${jogo.id} + '/editar'}" method="post">
+                <label th:text="'Gols do ' + ${jogo.timeCasa.nome}">Gols time casa</label>
+                <input type="number" name="golsCasa" min="0" th:value="${jogo.golsCasa}">
+
+                <label th:text="'Gols do ' + ${jogo.timeFora.nome}">Gols time fora</label>
+                <input type="number" name="golsFora" min="0" th:value="${jogo.golsFora}">
+
+                <label for="rodada">Rodada</label>
+                <input type="number" id="rodada" name="rodada" min="1" th:value="${jogo.rodada}">
+
+                <label for="data">Data do jogo</label>
+                <input type="date" id="data" name="data" th:value="${jogo.data}">
+
+                <div class="checkbox-linha">
+                    <input type="checkbox" id="jogado" name="jogado" value="true" th:checked="${jogo.jogado}">
+                    <label for="jogado" style="margin:0;">Jogo já foi realizado (entra na classificação)</label>
+                </div>
+
+                <div class="acoes">
+                    <button type="submit" class="btn">Salvar resultado</button>
+                    <a class="btn btn-secondary" th:href="@{'/admin/grupos/' + ${jogo.grupo.id}}">Voltar</a>
+                </div>
+            </form>
+        </div>
+
+        <div style="flex:1 1 320px;">
+            <h2>Artilheiros do jogo</h2>
+            <table>
+                <thead><tr><th class="nome-time">Jogador</th><th class="nome-time">Time</th><th>Gols</th><th></th></tr></thead>
+                <tbody>
+                <tr th:each="g : ${gols}">
+                    <td class="nome-time" th:text="${g.jogador}"></td>
+                    <td class="nome-time" th:text="${g.time.nome}"></td>
+                    <td th:text="${g.quantidade}"></td>
+                    <td>
+                        <form th:action="@{'/admin/gols/' + ${g.id} + '/excluir'}" method="post">
+                            <button type="submit" class="btn btn-small btn-danger">x</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(gols)}"><td colspan="4">Nenhum gol lançado ainda.</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Adicionar goleador</h3>
+            <form class="form-box" th:action="@{'/admin/jogos/' + ${jogo.id} + '/gols'}" method="post">
+                <label for="timeId">Time</label>
+                <select id="timeId" name="timeId" required>
+                    <option th:value="${jogo.timeCasa.id}" th:text="${jogo.timeCasa.nome}"></option>
+                    <option th:value="${jogo.timeFora.id}" th:text="${jogo.timeFora.nome}"></option>
+                </select>
+
+                <label for="jogador">Jogador</label>
+                <input type="text" id="jogador" name="jogador" required>
+
+                <label for="quantidade">Gols nesse jogo</label>
+                <input type="number" id="quantidade" name="quantidade" min="1" value="1">
+
+                <div class="acoes">
+                    <button type="submit" class="btn">Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

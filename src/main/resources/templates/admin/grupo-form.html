@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nova chave</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb"><a href="/admin">Painel Admin</a> / Nova chave</div>
+    <h1 th:text="'Nova chave em ' + ${divisao.nome}">Nova chave</h1>
+
+    <form class="form-box" th:action="@{'/admin/divisao/' + ${divisao.id} + '/grupos'}" method="post">
+        <label for="nome">Nome da chave</label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Chave A" required>
+        <div class="acoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn btn-secondary" href="/admin">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

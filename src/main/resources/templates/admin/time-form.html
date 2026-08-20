@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Novo time</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/nav :: nav}"></div>
+<div class="container">
+    <div class="breadcrumb"><a href="/admin">Painel Admin</a> / <a th:href="@{'/admin/grupos/' + ${grupo.id}}" th:text="${grupo.nome}"></a> / Novo time</div>
+    <h1 th:text="'Novo time em ' + ${grupo.nome}">Novo time</h1>
+
+    <form class="form-box" th:action="@{'/admin/grupos/' + ${grupo.id} + '/times'}" method="post">
+        <label for="nome">Nome do time</label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Real Salão" required>
+        <div class="acoes">
+            <button type="submit" class="btn">Salvar</button>
+            <a class="btn btn-secondary" th:href="@{'/admin/grupos/' + ${grupo.id}}">Cancelar</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

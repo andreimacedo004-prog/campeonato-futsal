@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav class="navbar" th:fragment="nav">
+    <div class="nav-container">
+        <a class="brand" href="/">🏆 Campeonato Municipal de Salão</a>
+        <div class="nav-links">
+            <a href="/">Início</a>
+            <span sec:authorize="isAuthenticated()">
+                <a href="/admin">Painel Admin</a>
+                <form th:action="@{/admin/logout}" method="post" class="logout-form">
+                    <button type="submit" class="link-button">Sair</button>
+                </form>
+            </span>
+            <span sec:authorize="!isAuthenticated()">
+                <a href="/admin/login">Área Admin</a>
+            </span>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
