@@ -5,3 +5,7 @@ data/
 .vscode/
 .DS_Store
 *.log
+application.properties
+application-railway.properties
+
+Ignora arquivos de configuração com credenciais reais
